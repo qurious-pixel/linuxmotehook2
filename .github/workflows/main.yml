@@ -11,7 +11,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-
+        with:
+          submodules: recursive
       - name: Install dependencies
         run: |
           sudo add-apt-repository -y ppa:vala-team/next
