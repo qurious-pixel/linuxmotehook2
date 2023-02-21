@@ -1,0 +1,27 @@
+name: Build
+
+on: 
+  push:
+
+jobs:
+  linuxmotehook2:
+    name: Build linuxmotehook2
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: |
+          sudo add-apt-repository -y ppa:vala-team/next
+          sudo apt-get install -y build-essential \
+            libudev-dev zlib1g-dev \
+            valac libgee-0.8-dev \  
+            meson
+            
+      - name: Build linuxmotehook2
+        run: |
+            meson --buildtype=release -Db_lto=true --prefix=/usr build
+            ninja -C build
+            ls -al build
